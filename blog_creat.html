@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>blog creat</title>
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        /* background-image: url(img_20230526.jpg); */
+        background-color: gray;
+        background-repeat: no-repeat;
+        box-sizing: border-box;
+    }
+
+    nav {
+        display: flex;
+        justify-content: space-around;
+        /* border: 2px solid red; */
+        height: 50px;
+        width: 100%;
+        /* margin: 10px 10px; */
+        color: aliceblue;
+        padding-top: 30px;
+        backdrop-filter: blur(8px);
+        box-shadow: inset 4px 4px 30px 2px rgb(73, 73, 73);
+    }
+
+    ul {
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+        gap: 30px;
+        font-size: 20px;
+
+    }
+
+    h1 {
+        margin-right: 500px;
+    }
+
+    h1>a {
+        font-size: 30px;
+
+    }
+
+    a {
+        color: aliceblue;
+        text-decoration: none;
+    }
+
+    .box {
+        width: 30%;
+        height: 510px;
+        color: black;
+        background-color: rgb(175, 178, 180);
+        font-size: 20px;
+        padding-left: 30px;
+        padding-top: 30px;
+        border: none;
+        margin-top: 80px;
+        backdrop-filter: blur(8px);
+        margin-left: 400px;
+        border: 3px solid black;
+        border-top: 9px solid black;
+        border-radius: 20px;
+        /* box-shadow: inset 4px 4px 30px 2px rgb(73, 73, 73); */
+    }
+
+    #content {
+        background-color: aliceblue;
+    }
+
+    input {
+        height: 25px;
+        width: 70%;
+        /* background-color: gray; */
+        font-size: 20px;
+        color: black;
+    }
+
+    .nav:is(:link, :active, :visited).active {
+        color: black;
+        background-color: rgb(168, 113, 46);
+        padding: 30px;
+    }
+
+    textarea {
+        background-color: gray;
+        width: 70%;
+        font-size: 20px;
+    }
+
+    button {
+        font-size: 20px;
+        font-weight: 500;
+        padding: 5px 25px;
+        background-color: gray;
+    }
+
+    .creat {
+        font-size: 30px;
+        width: 100%;
+        text-align: center;
+        /* border: 1px solid black; */
+    }
+</style>
+
+<body>
+    <header>
+        <nav>
+            <h1><a href="blog_home.html">🍔Food Blogger</a></h1>
+            <ul>
+                <li><a class="nav" href="blog_home.html">Home</a></li>
+                <li><a class="nav" href="blog_signin.html">Sign In</a></li>
+                <li><a class="nav" href="blog_login.html">Login</a></li>
+                <li><a class="nav" href="blog_creat.html">Creat Blog</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <form class="box">
+        <h1 class="creat"> Creat your own blog</h1><br>
+
+        <label for="title">Title</label><br>
+        <input type="text" id="creat" placeholder="creat blog"><br><br>
+        <label for="uploadimage">uploadimage</label><br>
+        <input type="file" id="uploadimage"><br>
+        <label for="content">content</label><br>
+        <textarea name="area" id="content" cols="40" rows="10"></textarea>
+        <br><br>
+        <button type="submit">submit</button>
+    </form>
+
+    <script>
+        const form = document.querySelector(".box")
+        const activepage = window.location.pathname;
+        const navgationbar = document.querySelectorAll(".nav").forEach(link => {
+            if (link.href.includes(`${activepage}`)) {
+                link.classList.add('active')
+            }
+        })
+        // form.addEventListener("submit",(event)=>{
+        //     event.preventDefault();
+        //     for (const iterator of event.target) {
+        //         if(iterator.value === ""){
+        //             continue
+        //         }
+        //     console.log(iterator.value)
+        //     }
+
+        //     // console.log(event.target[0].value)
+        // })
+
+        form.addEventListener("submit", savetext)
+        function savetext(e) {
+            e.preventDefault();
+            const imagefile = document.getElementById("uploadimage").files[1];
+
+            localStorage.setItem("title", e.target[0].value)
+            localStorage.setItem("storedimage", e.target[1].value)
+            localStorage.setItem("contant", e.target[2].value)
+
+
+            const render = new FileReader();
+            render.onload = function (e) {
+                localStorage.setItem("storedimage", e.target.result);
+                window.location.href = "blog_home.html";
+            }
+            render.readAsDataURL(imagefile)
+        }
+    </script>
+
+
+</body>
+
+</html>
